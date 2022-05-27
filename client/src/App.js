@@ -1,11 +1,11 @@
 import { Box, Heading } from "@chakra-ui/react";
 
-function App() {
+const App = () => {
 	return (
 		<Box>
 			<Heading color="primary">Hello World</Heading>
 		</Box>
 	);
-}
+};
 
 export default App;
