@@ -1,10 +1,14 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
 	return (
-		<Box>
-			<Heading color="primary">Hello World</Heading>
-		</Box>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Dashboard />} />
+			</Routes>
+		</BrowserRouter>
 	);
 };
 
