@@ -5,7 +5,10 @@ const theme = extendTheme({
 		transparent: "transparent",
 		black: "#000",
 		white: "#FFF",
-		primary: "#38B2AC",
+		primary: {
+			light: "#805AD5",
+			dark: "#553C9A",
+		},
 	},
 });
 
