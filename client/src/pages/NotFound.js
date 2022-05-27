@@ -6,7 +6,7 @@ import { Button, Center, Heading, Image, Stack, Text } from "@chakra-ui/react";
 const NotFound = () => {
 	return (
 		<Center h="100vh">
-			<Stack align="center">
+			<Stack align="center" spacing="0">
 				<Image src={image} alt="not found logo" w="350px" />
 
 				<Heading as="h3" size="md" textAlign="center">
