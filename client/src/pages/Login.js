@@ -29,16 +29,20 @@ const Dashboard = () => {
 	const baseUrl = process.env.REACT_APP_BASE_URL;
 
 	const [message, setMessage] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async (data) => {
 		try {
+			setLoading(true);
 			await axios.post(`${baseUrl}/auth/login`, {
 				username: data.username,
 				password: data.password,
 			});
 
+			setLoading(false);
 			navigate("/");
 		} catch (error) {
+			setLoading(false);
 			setMessage(error.response?.data?.message);
 		}
 	};
@@ -82,9 +86,12 @@ const Dashboard = () => {
 								<Button
 									bg="primary.light"
 									colorScheme="primary.dark"
-									disabled={!formState.isValid}
+									disabled={!formState.isValid | loading}
 									type="submit"
 									size="md"
+									isLoading={loading}
+									loadingText="Loading"
+									spinnerPlacement="start"
 								>
 									Submit
 								</Button>
