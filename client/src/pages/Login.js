@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -10,6 +11,7 @@ import {
 	Button,
 	Text,
 } from "@chakra-ui/react";
+import { FaKey, FaUser } from "react-icons/fa";
 
 import logoUrl from "../images/logo.png";
 import InputField from "../components/InputField";
@@ -24,17 +26,20 @@ const Dashboard = () => {
 	});
 
 	const navigate = useNavigate();
+	const baseUrl = process.env.REACT_APP_BASE_URL;
+
 	const [message, setMessage] = useState("");
 
-	const onSubmit = (data) => {
-		if (data.username === "Bbek") {
-			if (data.password === "123456") {
-				navigate("/");
-			} else {
-				setMessage("Incorrect Password");
-			}
-		} else {
-			setMessage("User not found");
+	const onSubmit = async (data) => {
+		try {
+			await axios.post(`${baseUrl}/auth/login`, {
+				username: data.username,
+				password: data.password,
+			});
+
+			navigate("/");
+		} catch (error) {
+			setMessage(error.response?.data?.message);
 		}
 	};
 
@@ -59,6 +64,7 @@ const Dashboard = () => {
 								<InputField
 									name="Username"
 									type="text"
+									icon={FaUser}
 									control={control}
 									rules={{ required: "Username is required." }}
 									message={formState.errors.username?.message}
@@ -67,6 +73,7 @@ const Dashboard = () => {
 								<InputField
 									name="Password"
 									type="password"
+									icon={FaKey}
 									control={control}
 									rules={{ required: "Password is required." }}
 									message={formState.errors.password?.message}
