@@ -73,7 +73,7 @@ const Navbar = () => {
 					<Menu>
 						{menus.map(({ name, route, icon }) => (
 							<Link to={route} key={name}>
-								<Tooltip label={name}>
+								<Tooltip label={show ? "" : name}>
 									<MenuButton
 										bg={location.pathname === route ? "primary.light" : ""}
 										color={location.pathname === route ? "white" : ""}
@@ -98,7 +98,7 @@ const Navbar = () => {
 			</Stack>
 
 			<Menu>
-				<Tooltip label="Logout">
+				<Tooltip label={show ? "" : "Logout"}>
 					<MenuButton
 						p="2"
 						w="100%"
