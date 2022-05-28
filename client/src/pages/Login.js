@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
@@ -12,7 +13,6 @@ import {
 
 import logoUrl from "../images/logo.png";
 import InputField from "../components/InputField";
-import { useState } from "react";
 
 const Dashboard = () => {
 	const { handleSubmit, control, formState } = useForm({
