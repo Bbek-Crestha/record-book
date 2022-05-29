@@ -17,3 +17,96 @@ model User {
   password String
   role String
 }
+
+model Tenant {
+  @@map(name:"tenants")
+  id Int @id @default(autoincrement())
+  name String
+  photo String
+  address String
+  contact Int
+  document String
+
+  total_amount Int
+  paid_amount Int
+  remaining_amount Int
+
+  rents Rent[]
+
+  rooms Room[]
+
+  wifi_user Wifi_User?
+
+  water_charge Water_Charge?
+
+  waste_charge Waste_Charge?
+}
+
+model Rent {
+  @@map(name:"rents")
+  id Int @id @default(autoincrement())
+  month String
+  amount String
+
+  tenant Tenant @relation(fields: [tenant_id], references: [id])
+  tenant_id Int
+}
+
+model Room {
+  @@map(name:"rooms")
+  id Int @id @default(autoincrement())
+  room_number Int @unique
+  isVacant Boolean
+  occupied_from DateTime?
+  occupied_till DateTime?
+  dimension String?
+  cost Int
+
+  tenant Tenant @relation(fields: [tenant_id], references: [id])
+  tenant_id Int
+
+  electricity_charge Electricity_Charge?
+}
+
+model Wifi_User {
+  @@map(name:"wifi_users")
+  id Int @id @default(autoincrement())
+  isWifiUser Boolean
+  device_count Int?
+  total_amount Int?
+
+  tenant Tenant @relation(fields: [tenant_id], references: [id])
+  tenant_id Int
+}
+
+model Electricity_Charge {
+  @@map(name:"electricity_charges")
+  id Int @id @default(autoincrement())
+  prev_unit Int
+  new_unit Int
+  cost_per_unit Int
+  total_cost Int
+
+  room Room @relation(fields: [room_id], references: [id])
+  room_id Int
+}
+
+model Water_Charge {
+  @@map(name:"water_charges")
+  id Int @id @default(autoincrement())
+  isWaterUser Boolean
+  total_amount Int?
+
+  tenant Tenant @relation(fields: [tenant_id], references: [id])
+  tenant_id Int
+}
+
+model Waste_Charge {
+  @@map(name:"waste_charges")
+  id Int @id @default(autoincrement())
+  isWasteManagementUser Boolean
+  total_amount Int?
+
+  tenant Tenant @relation(fields: [tenant_id], references: [id])
+  tenant_id Int
+}
